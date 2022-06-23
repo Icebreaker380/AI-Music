@@ -38,7 +38,8 @@ function gotPoses(results)
     {
         console.log(results);
         scoreLeftWrist = results[0].pose.keypoints[9].score;
-        console.log("scoreLeftWrist = " + scoreLeftWrist);
+        scoreRightWrist = results[0].pose.keypoints[10].score;
+        console.log("scoreLeftWrist = " + scoreLeftWrist + " scoreRightWrist = " + scoreRightWrist);
 
         leftWristX = results[0].pose.leftWrist.x;
         leftWristY = results[0].pose.leftWrist.y;
@@ -59,6 +60,18 @@ function draw()
 
     fill("#FF0000");
     stroke("#FF0000");
+
+    if(scoreRightWrist > 0.2)
+    {
+        circle(rightWristX, rightWristY, 20);
+        song2.stop();
+
+        if(song1_status == false)
+        {
+            song1.play();
+            document.getElementById("song").innerHTML = "Playing - Harry Potter Theme Song";
+        }
+    }
 
     if(scoreLeftWrist > 0.2)
     {
